@@ -1097,9 +1097,7 @@ index f5c0fc7bad..9f5b9d19fa 100644
  #include "internal.h"
  
 +#ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
-+extern void susfs_sus_ino_for_show_map_vma(unsigned long ino,
-+					  dev_t *out_dev,
-+					  unsigned long *out_ino);
++extern void susfs_sus_ino_for_show_map_vma(unsigned long ino, dev_t *out_dev, unsigned long *out_ino);
 +#endif
 +
  void task_mem(struct seq_file *m, struct mm_struct *mm)
