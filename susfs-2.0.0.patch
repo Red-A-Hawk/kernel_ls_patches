@@ -1103,7 +1103,7 @@ index f5c0fc7bad..9f5b9d19fa 100644
  void task_mem(struct seq_file *m, struct mm_struct *mm)
  {
  	unsigned long text, lib, swap, anon, file, shmem;
-@@ -346,8 +353,35 @@ show_map_vma(struct seq_file *m, struct vm_area_struct *vma, int is_pid)
+@@ -354,8 +361,35 @@ show_map_vma(struct seq_file *m, struct vm_area_struct *vma, int is_pid)
  
  	if (file) {
  		struct inode *inode = file_inode(vma->vm_file);
@@ -1139,7 +1139,7 @@ index f5c0fc7bad..9f5b9d19fa 100644
  		pgoff = ((loff_t)vma->vm_pgoff) << PAGE_SHIFT;
  	}
  
-@@ -877,6 +911,20 @@ static int show_smap(struct seq_file *m, void *v, int is_pid)
+@@ -883,6 +917,20 @@ static int show_smap(struct seq_file *m, void *v, int is_pid)
  	}
  
  	if (!rollup_mode)
@@ -1160,7 +1160,7 @@ index f5c0fc7bad..9f5b9d19fa 100644
  		seq_printf(m,
  			   "Size:           %8lu kB\n"
  			   "KernelPageSize: %8lu kB\n"
-@@ -884,7 +932,9 @@ static int show_smap(struct seq_file *m, void *v, int is_pid)
+@@ -890,7 +938,9 @@ static int show_smap(struct seq_file *m, void *v, int is_pid)
  			   (vma->vm_end - vma->vm_start) >> 10,
  			   vma_kernel_pagesize(vma) >> 10,
  			   vma_mmu_pagesize(vma) >> 10);
@@ -1171,7 +1171,7 @@ index f5c0fc7bad..9f5b9d19fa 100644
  
  	if (!rollup_mode || last_vma)
  		seq_printf(m,
-@@ -921,9 +971,22 @@ static int show_smap(struct seq_file *m, void *v, int is_pid)
+@@ -927,9 +977,22 @@ static int show_smap(struct seq_file *m, void *v, int is_pid)
  			   (unsigned long)(mss->pss_locked >> (10 + PSS_SHIFT)));
  
  	if (!rollup_mode) {
@@ -1194,7 +1194,7 @@ index f5c0fc7bad..9f5b9d19fa 100644
  	m_cache_vma(m, vma);
  	return ret;
  }
-@@ -1540,6 +1603,9 @@ static ssize_t pagemap_read(struct file *file, char __user *buf,
+@@ -1546,6 +1609,9 @@ static ssize_t pagemap_read(struct file *file, char __user *buf,
  	unsigned long start_vaddr;
  	unsigned long end_vaddr;
  	int ret = 0, copied = 0;
@@ -1204,7 +1204,7 @@ index f5c0fc7bad..9f5b9d19fa 100644
  
  	if (!mm || !mmget_not_zero(mm))
  		goto out;
-@@ -1598,6 +1664,16 @@ static ssize_t pagemap_read(struct file *file, char __user *buf,
+@@ -1604,6 +1670,16 @@ static ssize_t pagemap_read(struct file *file, char __user *buf,
  		down_read(&mm->mmap_sem);
  		ret = walk_page_range(start_vaddr, end, &pagemap_walk);
  		up_read(&mm->mmap_sem);
