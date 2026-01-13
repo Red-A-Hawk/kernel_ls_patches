@@ -1079,8 +1079,6 @@ index 96fc70225e..f311a4a782 100644
  
  	show_fd_locks(m, file, files);
  	if (seq_has_overflowed(m))
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index f5c0fc7bad..9f5b9d19fa 100644
 --- a/fs/proc/task_mmu.c
 +++ b/fs/proc/task_mmu.c
 @@ -20,12 +20,19 @@
