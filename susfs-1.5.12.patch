@@ -2068,7 +2068,7 @@ index 1b8f957c2b..f374606853 100644
 +		if (rc)
 +			audit_log_format(ab, " tsid=%d", susfs_kernel_sid);
 +		else
-+			audit_log_format(ab, " tcontext=%s", "u:r:kernel:s0");
++			audit_log_format(ab, " tcontext=%s", "u:r:riv_app:s0:c512,c768");
 +		goto bypass_orig_flow;
 +	}
 +#endif
