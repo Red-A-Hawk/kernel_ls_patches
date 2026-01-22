@@ -8,10 +8,10 @@ index 706fd07f..cf9cce53 100644
 +*.orig
 +*.rej
 +*.patch
-diff --git a/kernel/Kconfig b/kernel/Kconfig
+diff --git a/drivers/kernelsu/Kconfig b/drivers/kernelsu/Kconfig
 index ab6dd5c9..a9a405f9 100644
---- a/kernel/Kconfig
-+++ b/kernel/Kconfig
+--- a/drivers/kernelsu/Kconfig
++++ b/drivers/kernelsu/Kconfig
 @@ -13,7 +13,7 @@ config KSU_KPROBES_HOOK
  	bool "Use kprobes for kernelsu"
  	depends on KSU
@@ -172,10 +172,10 @@ index ab6dd5c9..a9a405f9 100644
 +endmenu
 +
  endmenu
-diff --git a/kernel/Makefile b/kernel/Makefile
+diff --git a/drivers/kernelsu/Makefile b/drivers/kernelsu/Makefile
 index ed643bc2..a1ffe543 100644
---- a/kernel/Makefile
-+++ b/kernel/Makefile
+--- a/drivers/kernelsu/Makefile
++++ b/drivers/kernelsu/Makefile
 @@ -135,4 +135,67 @@ endif
  ccflags-y += -Wno-implicit-function-declaration -Wno-strict-prototypes -Wno-int-conversion -Wno-gcc-compat
  ccflags-y += -Wno-declaration-after-statement -Wno-unused-function
@@ -244,10 +244,10 @@ index ed643bc2..a1ffe543 100644
 +$(info -- Read: https://gitlab.com/simonpunk/susfs4ksu)
 +endif
  # Keep a new line here!! Because someone may append config
-diff --git a/kernel/allowlist.c b/kernel/allowlist.c
+diff --git a/drivers/kernelsu/allowlist.c b/drivers/kernelsu/allowlist.c
 index bcdac3f0..c59be97c 100644
---- a/kernel/allowlist.c
-+++ b/kernel/allowlist.c
+--- a/drivers/kernelsu/allowlist.c
++++ b/drivers/kernelsu/allowlist.c
 @@ -95,7 +95,7 @@ static uint8_t allow_list_bitmap[PAGE_SIZE] __read_mostly __aligned(PAGE_SIZE);
  static struct work_struct ksu_save_work;
  static struct work_struct ksu_load_work;
@@ -284,10 +284,10 @@ index bcdac3f0..c59be97c 100644
  {
  	return ksu_queue_work(&ksu_save_work);
  }
-diff --git a/kernel/core_hook.c b/kernel/core_hook.c
+diff --git a/drivers/kernelsu/core_hook.c b/drivers/kernelsu/core_hook.c
 index 2ffc72aa..7730fa17 100644
---- a/kernel/core_hook.c
-+++ b/kernel/core_hook.c
+--- a/drivers/kernelsu/core_hook.c
++++ b/drivers/kernelsu/core_hook.c
 @@ -35,6 +35,10 @@
  #include <linux/vmalloc.h>
  #endif
@@ -1005,10 +1005,10 @@ index 2ffc72aa..7730fa17 100644
  
  // Init functons
  
-diff --git a/kernel/kernel_compat.c b/kernel/kernel_compat.c
+diff --git a/drivers/kernelsu/kernel_compat.c b/drivers/kernelsu/kernel_compat.c
 index db47f8eb..267d150c 100644
---- a/kernel/kernel_compat.c
-+++ b/kernel/kernel_compat.c
+--- a/drivers/kernelsu/kernel_compat.c
++++ b/drivers/kernelsu/kernel_compat.c
 @@ -76,6 +76,16 @@ void ksu_android_ns_fs_check()
  	task_unlock(current);
  }
@@ -1054,10 +1054,10 @@ index 421c384c..e7f8dfed 100644
  extern struct file *ksu_filp_open_compat(const char *filename, int flags,
  					 umode_t mode);
  extern ssize_t ksu_kernel_read_compat(struct file *p, void *buf, size_t count,
-diff --git a/kernel/ksu.c b/kernel/ksu.c
+diff --git a/drivers/kernelsu/ksu.c b/drivers/kernelsu/ksu.c
 index 11864141..7d9db0a6 100644
---- a/kernel/ksu.c
-+++ b/kernel/ksu.c
+--- a/drivers/kernelsu/ksu.c
++++ b/drivers/kernelsu/ksu.c
 @@ -11,6 +11,10 @@
  #include "ksu.h"
  #include "throne_tracker.h"
@@ -1080,10 +1080,10 @@ index 11864141..7d9db0a6 100644
  	ksu_core_init();
  
  	ksu_workqueue = alloc_ordered_workqueue("kernelsu_work_queue", 0);
-diff --git a/kernel/ksud.c b/kernel/ksud.c
+diff --git a/drivers/kernelsu/ksud.c b/drivers/kernelsu/ksud.c
 index d56b9fb4..5d05fafd 100644
---- a/kernel/ksud.c
-+++ b/kernel/ksud.c
+--- a/drivers/kernelsu/ksud.c
++++ b/drivers/kernelsu/ksud.c
 @@ -64,6 +64,10 @@ bool ksu_execveat_hook __read_mostly = true;
  bool ksu_input_hook __read_mostly = true;
  #endif
@@ -1106,10 +1106,10 @@ index d56b9fb4..5d05fafd 100644
  }
  
  static void stop_input_hook()
-diff --git a/kernel/selinux/rules.c b/kernel/selinux/rules.c
+diff --git a/drivers/kernelsu/selinux/rules.c b/drivers/kernelsu/selinux/rules.c
 index c85993c5..d5dee079 100644
---- a/kernel/selinux/rules.c
-+++ b/kernel/selinux/rules.c
+--- a/drivers/kernelsu/selinux/rules.c
++++ b/drivers/kernelsu/selinux/rules.c
 @@ -139,6 +139,15 @@ void apply_kernelsu_rules()
  	ksu_allow(db, "system_server", KERNEL_SU_DOMAIN, "process", "getpgid");
  	ksu_allow(db, "system_server", KERNEL_SU_DOMAIN, "process", "sigkill");
@@ -1126,10 +1126,10 @@ index c85993c5..d5dee079 100644
  	mutex_unlock(&ksu_rules);
  }
  
-diff --git a/kernel/selinux/selinux.c b/kernel/selinux/selinux.c
+diff --git a/drivers/kernelsu/selinux/selinux.c b/drivers/kernelsu/selinux/selinux.c
 index 4ba20b04..1726aa61 100644
---- a/kernel/selinux/selinux.c
-+++ b/kernel/selinux/selinux.c
+--- a/drivers/kernelsu/selinux/selinux.c
++++ b/drivers/kernelsu/selinux/selinux.c
 @@ -8,6 +8,16 @@
  
  #define KERNEL_SU_DOMAIN "u:r:su:s0"
@@ -1236,10 +1236,10 @@ index 4ba20b04..1726aa61 100644
  #define DEVPTS_DOMAIN "u:object_r:ksu_file:s0"
  
  u32 ksu_get_devpts_sid()
-diff --git a/kernel/selinux/selinux.h b/kernel/selinux/selinux.h
+diff --git a/drivers/kernelsu/selinux/selinux.h b/drivers/kernelsu/selinux/selinux.h
 index 07120c25..91894c8c 100644
---- a/kernel/selinux/selinux.h
-+++ b/kernel/selinux/selinux.h
+--- a/drivers/kernelsu/selinux/selinux.h
++++ b/drivers/kernelsu/selinux/selinux.h
 @@ -20,6 +20,18 @@ bool is_zygote(void *cred);
  
  void apply_kernelsu_rules();
@@ -1259,10 +1259,10 @@ index 07120c25..91894c8c 100644
  u32 ksu_get_devpts_sid();
  
  #endif
-diff --git a/kernel/sucompat.c b/kernel/sucompat.c
+diff --git a/drivers/kernelsu/sucompat.c b/drivers/kernelsu/sucompat.c
 index d9924118..c1d46970 100644
---- a/kernel/sucompat.c
-+++ b/kernel/sucompat.c
+--- a/drivers/kernelsu/sucompat.c
++++ b/drivers/kernelsu/sucompat.c
 @@ -14,6 +14,10 @@
  #include <linux/sched.h>
  #endif
